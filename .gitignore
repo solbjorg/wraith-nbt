@@ -1,3 +1,7 @@
+# Irrelevant folders. #
+bin
+lib
+
 *.class
 
 # Package Files #
