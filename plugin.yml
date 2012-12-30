@@ -1,3 +1,38 @@
 name: WraithNBT
-main: net.teamwraith.wraithnbt
-version: 1.0
+main: net.teamwraith.wraithnbt.WraithNBT
+version: 0.5
+commands:
+  nbt:
+    description: Edit NBT tags.
+permissions:
+  wraithnbt.*:
+    description: Allows player to edit all NBT tags.
+    children:
+      wraithnbt.lore: true
+      wraithnbt.name: true
+      wraithnbt.head: true
+      wraithnbt.colour: true
+      wraithnbt.potion: true
+      wraithnbt.enchant: true
+      wraithnbt.book: true
+  wraithnbt.lore:
+    description: Allows player to edit lore.
+    default: op
+  wraithnbt.name:
+    description: Allows player to edit item names.
+    default: op
+  wraithnbt.head:
+    description: Allows player to edit head owner.
+    default: op
+  wraithnbt.colour:
+    description: Allows player to edit leather armour's colour.
+    default: op
+  wraithnbt.potion:
+    description: Allows player to edit potions.
+    default: op
+  wraithnbt.enchant:
+    description: Allows player to edit enchantments.
+    default: op
+  wraithnbt.book:
+    description: Allows player to edit books.
+    default: op
