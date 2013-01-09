@@ -12,6 +12,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
+import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.PotionMeta;
@@ -365,7 +366,15 @@ public class WraithNBTCommand implements CommandExecutor {
             }
             
             if (enchantment != null) {
-                item.addUnsafeEnchantment(enchantment, level);
+                if (item.getType().equals(Material.ENCHANTED_BOOK)) {
+                    EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();
+                    meta.addStoredEnchant(enchantment, level, true); //third parameter to ignoreLevelRestriction
+                    item.setItemMeta(meta);
+                }
+                else {
+                    item.addUnsafeEnchantment(enchantment, level);
+                }
+                
                 sender.sendMessage(WraithNBT.PREFIX + " Enchantment added.");
                 return true;
             }
