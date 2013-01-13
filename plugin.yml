@@ -1,6 +1,8 @@
 name: WraithNBT
 main: net.teamwraith.wraithnbt.WraithNBT
-version: 0.5
+version: 0.8
+description: A plugin for editing all sorts of NBT tags.
+author: EternalFacepalm
 commands:
   nbt:
     description: Edit NBT tags.

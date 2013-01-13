@@ -1,6 +1,7 @@
 package net.teamwraith.wraithnbt;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
@@ -28,7 +29,7 @@ public class WraithNBTCommand implements CommandExecutor {
 
 	Player player;
 	
-    private String colorCode(String str) {
+    private String colourCode(String str) {
 	   str = ChatColor.translateAlternateColorCodes('&', str);
 	   return str;
     }
@@ -158,7 +159,7 @@ public class WraithNBTCommand implements CommandExecutor {
     	    }
 
     	    ItemMeta im = (ItemMeta) item.getItemMeta();
-    	    im.setDisplayName(colorCode(result));
+    	    im.setDisplayName(colourCode(result));
     	    item.setItemMeta(im);
     	    
             sender.sendMessage(WraithNBT.PREFIX + " Item name set.");
@@ -169,8 +170,8 @@ public class WraithNBTCommand implements CommandExecutor {
         		sender.sendMessage(WraithNBT.ERROR_PREFIX + " You lack the necessary permissions to perform this command.");
         	}
     	    
-    	    if (args.length < 3){
-    		    sender.sendMessage(WraithNBT.ERROR_PREFIX + " Usage: /nbt book author/title <input>");
+    	    if (args.length < 2){
+    		    sender.sendMessage(WraithNBT.ERROR_PREFIX + " Usage: /nbt book author/title <input> OR /nbt book colourpages");
     		    return true;
     	    }
     	    
@@ -191,12 +192,24 @@ public class WraithNBTCommand implements CommandExecutor {
     	    
     	    // Sets author
     	    if (args[1].equalsIgnoreCase("author")) {
-    	    	meta.setAuthor(colorCode(result));
+    	    	meta.setAuthor(colourCode(result));
     	    }
     	    
     	    // Sets title
     	    else if (args[1].equalsIgnoreCase("title")) {
-    	    	meta.setTitle(colorCode(result));
+    	    	meta.setTitle(colourCode(result));
+    	    }
+    	    
+    	    // Colour codes all pages in the book
+    	    else if (args[1].equalsIgnoreCase("colourpages")) {
+    	    	List<String> pages = new ArrayList<String>(meta.getPages().size());
+    	    	
+    	    	for (String page : meta.getPages()) {
+    	    		pages.add(colourCode(page));
+    	    	}
+    	    	
+    	    	meta.setPages(pages);
+    	    	sender.sendMessage(WraithNBT.PREFIX + " Colour coded "+meta.getTitle()+".");
     	    }
     	    
     	    item.setItemMeta(meta);
@@ -240,11 +253,11 @@ public class WraithNBTCommand implements CommandExecutor {
     	    
     	    // Allows adding of new lines.
     	    if (pos >= lore.size()){
-    	    	lore.add(colorCode(result));
+    	    	lore.add(colourCode(result));
     	    } else {
     	    	// Makes sure that the user actually inputs a valid line number
     	    	try {
-    	    		lore.set(pos, colorCode(result));
+    	    		lore.set(pos, colourCode(result));
     	    	} catch (IndexOutOfBoundsException e){
     	    		sender.sendMessage(WraithNBT.ERROR_PREFIX + " Invalid line number.");
     	    	}
