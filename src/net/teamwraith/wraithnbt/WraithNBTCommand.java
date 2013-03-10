@@ -28,7 +28,7 @@ import org.bukkit.potion.PotionEffectType;
 public class WraithNBTCommand implements CommandExecutor {
 
 	Player player;
-	
+
     private String colourCode(String str) {
 	   str = ChatColor.translateAlternateColorCodes('&', str);
 	   return str;
@@ -36,7 +36,7 @@ public class WraithNBTCommand implements CommandExecutor {
     
     private void listEnchantments() {
     	player.sendMessage(WraithNBT.PREFIX + " The available enchantments are:");
-		
+
 		for (Enchantment e : Enchantment.values()) {
 			player.sendMessage(ChatColor.AQUA + e.getName());
 		}
@@ -62,13 +62,16 @@ public class WraithNBTCommand implements CommandExecutor {
         ItemStack item = player.getItemInHand();
        
         if (args.length == 0 || args[0].equalsIgnoreCase("help")){
-        	sender.sendMessage(WraithNBT.ERROR_PREFIX + " Options: head, colour, name, potion, enchant, lore, book");
+        	sender.sendMessage(WraithNBT.ERROR_PREFIX + " Options: get, firework, head, colour, name, potion, enchant, lore, book");
             return true;
         }
-        
+
+
+		
         if (args[0].equalsIgnoreCase("head")) {
         	if (!player.hasPermission("wraithnbt.head")){
         		sender.sendMessage(WraithNBT.ERROR_PREFIX + " You lack the necessary permissions to perform this command.");
+				return true
         	}
         	
         	if (args.length != 2){
@@ -92,6 +95,7 @@ public class WraithNBTCommand implements CommandExecutor {
         else if (args[0].equalsIgnoreCase("colour")) {
         	if (!player.hasPermission("wraithnbt.colour")){
         		sender.sendMessage(WraithNBT.ERROR_PREFIX + " You lack the necessary permissions to perform this command.");
+				return true;
         	}
         	
     	    if (args.length != 4){
@@ -143,6 +147,7 @@ public class WraithNBTCommand implements CommandExecutor {
         else if (args[0].equalsIgnoreCase("name")) {
         	if (!player.hasPermission("wraithnbt.name")){
         		sender.sendMessage(WraithNBT.ERROR_PREFIX + " You lack the necessary permissions to perform this command.");
+				return true;
         	}
         	
     	    if (args.length < 2){
@@ -168,6 +173,7 @@ public class WraithNBTCommand implements CommandExecutor {
         else if (args[0].equalsIgnoreCase("book")){
         	if (!player.hasPermission("wraithnbt.book")){
         		sender.sendMessage(WraithNBT.ERROR_PREFIX + " You lack the necessary permissions to perform this command.");
+				return true;
         	}
     	    
     	    if (args.length < 2){
@@ -218,6 +224,7 @@ public class WraithNBTCommand implements CommandExecutor {
         else if (args[0].equalsIgnoreCase("lore")) {
         	if (!player.hasPermission("wraithnbt.lore")){
         		sender.sendMessage(WraithNBT.ERROR_PREFIX + " You lack the necessary permissions to perform this command.");
+				return true
         	}
         	
     	    if (args.length < 3){
@@ -271,6 +278,8 @@ public class WraithNBTCommand implements CommandExecutor {
         else if (args[0].equalsIgnoreCase("potion")) {
         	if (!player.hasPermission("wraithnbt.potion")){
         		sender.sendMessage(WraithNBT.ERROR_PREFIX + " You lack the necessary permissions to perform this command.");
+				return true;
+				
         	}
         	
         	if (args.length == 2){
@@ -338,7 +347,7 @@ public class WraithNBTCommand implements CommandExecutor {
 	                	sender.sendMessage(WraithNBT.ERROR_PREFIX + " " + e.getMessage() + ".");
 	                	return true;
 	                }
-	            	
+
 	            	potion.setSplash(splash);
 	            	potion.apply(item);
             	}
@@ -353,6 +362,7 @@ public class WraithNBTCommand implements CommandExecutor {
         else if (args[0].equalsIgnoreCase("enchant")) {
         	if (!player.hasPermission("wraithnbt.enchant")){
         		sender.sendMessage(WraithNBT.ERROR_PREFIX + " You lack the necessary permissions to perform this command.");
+				return true;
         	}
         	
         	if (args.length >= 2){
